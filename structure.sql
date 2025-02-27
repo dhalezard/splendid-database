@@ -7,7 +7,7 @@ CREATE TABLE shops (
 );
     
 CREATE TABLE sellers (
-	id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
     shop_id INT
@@ -20,8 +20,7 @@ CREATE TABLE addresses (
     street VARCHAR (30) NOT NULL,
     floor VARCHAR(10),
     apartment VARCHAR(5),
-    customer_id INT,
-    shop_id INT
+    customer_id INT
 );
 
 CREATE TABLE customers (
@@ -51,26 +50,58 @@ CREATE TABLE sales (
     address_id INT
 );
 
-
-
-
-
-
 ALTER TABLE shops
-	ADD CONSTRAINT fk_address_id FOREIGN KEY (address_id) REFERENCES addresses(id);
-    
+ADD CONSTRAINT fk_shops_address_id
+FOREIGN KEY (address_id)
+REFERENCES addresses(id)
+ON DELETE SET NULL
+ON UPDATE CASCADE;
+
 ALTER TABLE sellers
-	ADD CONSTRAINT fk_shop_id FOREIGN KEY (shop_id) REFERENCES shops(id);
-    
+ADD CONSTRAINT fk_sellers_shop_id
+FOREIGN KEY (shop_id)
+REFERENCES shops(id)
+ON DELETE SET NULL
+ON UPDATE CASCADE;
+
 ALTER TABLE addresses
-	ADD CONSTRAINT fk_customer_id FOREIGN KEY (customer_id) REFERENCES customers(id),
-    ADD CONSTRAINT fk_shop_id FOREIGN KEY (shop_id) REFERENCES shops(id);
-    
+ADD CONSTRAINT fk_addresses_customer_id
+FOREIGN KEY (customer_id)
+REFERENCES customers(id)
+ON DELETE SET NULL
+ON UPDATE CASCADE;
+
 ALTER TABLE customers
-	ADD CONSTRAINT fk_address_id FOREIGN KEY (address_id) REFERENCES addresses(id);
-    
+ADD CONSTRAINT fk_customers_address_id
+FOREIGN KEY (address_id)
+REFERENCES addresses(id)
+ON DELETE SET NULL
+ON UPDATE CASCADE;
+
 ALTER TABLE sales
-	ADD CONSTRAINT fk_seller_id FOREIGN KEY (seller_id) REFERENCES sellers(id),
-    ADD CONSTRAINT fk_customer_id FOREIGN KEY (customer_id) REFERENCES customers(id),
-    ADD CONSTRAINT fk_shop_id FOREIGN KEY (shops_id) REFERENCES shops(id),
-    ADD CONSTRAINT fk_address_id FOREIGN KEY (address_id) REFERENCES addresses(id);
+ADD CONSTRAINT fk_sales_seller_id
+FOREIGN KEY (seller_id)
+REFERENCES sellers(id)
+ON DELETE SET NULL
+ON UPDATE CASCADE;
+
+ALTER TABLE sales
+ADD CONSTRAINT fk_sales_customer_id
+FOREIGN KEY (customer_id)
+REFERENCES customers(id)
+ON DELETE SET NULL
+ON UPDATE CASCADE;
+
+ALTER TABLE sales
+ADD CONSTRAINT fk_sales_shop_id
+FOREIGN KEY (shop_id)
+REFERENCES shops(id)
+ON DELETE SET NULL
+ON UPDATE CASCADE;
+
+ALTER TABLE sales
+ADD CONSTRAINT fk_sales_address_id
+FOREIGN KEY (address_id)
+REFERENCES addresses(id)
+ON DELETE SET NULL
+ON UPDATE CASCADE;
