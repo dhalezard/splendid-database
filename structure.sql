@@ -33,8 +33,7 @@ CREATE TABLE customers (
     sex ENUM('masculino', 'femenino', 'otro'),
     marketing BOOLEAN DEFAULT 0,
     instagram VARCHAR(20),
-    facebook VARCHAR(60),
-    address_id INT
+    facebook VARCHAR(60)
 );
 
 CREATE TABLE sales (
@@ -68,13 +67,6 @@ ALTER TABLE addresses
 ADD CONSTRAINT fk_addresses_customer_id
 FOREIGN KEY (customer_id)
 REFERENCES customers(id)
-ON DELETE SET NULL
-ON UPDATE CASCADE;
-
-ALTER TABLE customers
-ADD CONSTRAINT fk_customers_address_id
-FOREIGN KEY (address_id)
-REFERENCES addresses(id)
 ON DELETE SET NULL
 ON UPDATE CASCADE;
 
